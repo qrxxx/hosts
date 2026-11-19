@@ -11,6 +11,11 @@ verify_IP() {
    return 0
 }
 
+if [ -z "$1" ] || [ ! -f "$1" ]; then
+   echo "Error: file '$1' does not exist." >&2
+   exit 1
+fi
+
 while read -r ip name; do
    if [ -z "$ip" ] || [[ "$ip" == \#* ]]; then
      continue
@@ -21,4 +26,4 @@ while read -r ip name; do
 
    verify_IP "$ip" "$name"
 
-done < "$HOME/etc/hosts"
+done < "$1"
